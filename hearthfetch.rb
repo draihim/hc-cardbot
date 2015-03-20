@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'uri'
 require 'json'
+SLACK_TOKEN = ENV['SLACK_TOKEN']
 helpers do 
     def get_card(name)
         begin
@@ -17,7 +18,7 @@ helpers do
 end
 
 post '/' do
-    puts params
+    halt :401 unless params['token'] = SLACK_TOKEN
     trigger=params['trigger_word']
     card = params['text'].scan(/#{trigger}(.*)/).flatten[0].strip
     return JSON.generate({
