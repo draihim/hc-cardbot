@@ -15,5 +15,7 @@ end
 
 post '/' do
     puts params
-    get_card(params['card'])
+    trigger=params['trigger_word']
+    card = params['text'].scan(/#{trigger}(.*)/).flatten[0].strip
+    get_card(card)
 end
