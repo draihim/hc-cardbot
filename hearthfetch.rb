@@ -18,7 +18,7 @@ helpers do
 end
 
 post '/' do
-    halt :401 unless params['token'] = SLACK_TOKEN
+    halt 401 unless params['token'] = SLACK_TOKEN
     trigger=params['trigger_word']
     card = params['text'].scan(/#{trigger}(.*)/).flatten[0].strip
     return JSON.generate({
