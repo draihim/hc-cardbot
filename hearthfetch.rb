@@ -23,6 +23,6 @@ post '/' do
     return JSON.generate({
         username: "pix",
         text: get_card(card),
-        icon_emoji_: ":shipit:"
+        icon_emoji_: ":goberserk:"
     })
 end
