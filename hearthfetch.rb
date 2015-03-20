@@ -18,13 +18,14 @@ helpers do
                                   icon_emoji: ":cry:",
                                   text: "lol nope"
             })
+        end
+
     end
-
 end
 
-post '/' do
-    puts params
-    trigger=params['trigger_word']
-    card = params['text'].scan(/#{trigger}(.*)/).flatten[0].strip
-    get_card(card)
-end
+    post '/' do
+        puts params
+        trigger=params['trigger_word']
+        card = params['text'].scan(/#{trigger}(.*)/).flatten[0].strip
+        return get_card(card)
+    end
