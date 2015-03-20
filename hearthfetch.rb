@@ -8,24 +8,21 @@ helpers do
             require 'open-uri'
             doc = Nokogiri::HTML(open(URI.encode("http://hearthstone.wikia.com/wiki/Special:Search?search=#{name}&fulltext=Search&ns0=1&ns14=1#")))
             stuff = doc.xpath("//a[@class='result-link']").map{|x| x.content}
-            card_url = Nokogiri::HTML(open(stuff[1])).xpath("//img").xpath("//div[@class='tooltip-content']")[0].children[0]["href"]
-            return JSON.generate({username: "pix",
-                                  icon_emoji: ":neckbeard:",
-                                  text: card_url
-            })
-        rescue 
-            return JSON.generate({username: "pix",
-                                  icon_emoji: ":cry:",
-                                  text: "lol nope"
-            })
+            res = Nokogiri::HTML(open(stuff[1])).xpath("//img").xpath("//div[@class='tooltip-content']")[0].children[0]["href"]
+        rescue
+            res = "Not found. You messed something up, didn't you? You did. You messed something up."
         end
-
+        return res
     end
 end
 
-    post '/' do
-        puts params
-        trigger=params['trigger_word']
-        card = params['text'].scan(/#{trigger}(.*)/).flatten[0].strip
-        return get_card(card)
-    end
+post '/' do
+    puts params
+    trigger=params['trigger_word']
+    card = params['text'].scan(/#{trigger}(.*)/).flatten[0].strip
+    return JSON.generate({
+        username: "pix",
+        text: get_card(card),
+        icon_emoji_: ":shipit:"
+    })
+end
