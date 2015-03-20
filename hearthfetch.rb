@@ -27,5 +27,4 @@ end
                 icon_emoji: ":shipit:",
                 text: url
             }) 
-        end
     end
